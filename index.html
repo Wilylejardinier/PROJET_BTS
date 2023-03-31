@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Importer des données à partir de fichiers CSV ou XLS en PHP</title>
+</head>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        <label for="file">Télécharger un fichier CSV ou XLS:</label>
+        <input type="file" name="file" id="file">
+        <br>
+        <input type="submit" name="submit" value="Envoyer">
+    </form>
+
+    <?php
+    if (isset($_POST['submit'])) {
+        $host = "51.178.17.79";
+        $username = "Ascaba";
+        $password = "aScaba2023**";
+        $dbname = "ProjetSN";
+
+        $conn = new mysqli($host, $username, $password, $dbname);
+
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        // Vérifier si le fichier a été téléchargé avec succès
+        if ($_FILES['file']['error'] > 0) {
+            echo "Erreur lors du téléchargement du fichier: " . $_FILES['file']['error'];
+        } else {
+            $filename = $_FILES['file']['tmp_name'];
+            $ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+
+            // Vérifier si le fichier est de type CSV ou XLS
+            if ($ext == 'csv' || $ext == 'xls' || $ext == 'xlsx') {
+                if ($ext == 'csv') {
+                    $file = fopen($filename, "r");
+                } else {
+                    require_once 'PHPExcel/Classes/PHPExcel.php';
+                    $inputFileType = PHPExcel_IOFactory::identify($filename);
+                    $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+                    $objPHPExcel = $objReader->load($filename);
+                    $worksheet = $objPHPExcel->getActiveSheet();
+                }
+
+                // Parcourir chaque ligne du fichier et enregistrer les données dans la base de données
+                while (($data = fgetcsv($file, 1000, ",")) !== FALSE) {
+                    $sql = "INSERT INTO ma_table (colonne1, colonne2, colonne3) VALUES ('$data[0]', '$data[1]', '$data[2]')"; // Remplacer ma_table et colonne1, colonne2, colonne3 par les noms de votre table et de vos colonnes
+
+                    if ($conn->query($sql) === TRUE) {
+                        echo "Nouvel enregistrement créé avec succès.";
+                    } else {
+                        echo "Erreur: " . $sql . "<br>" . $conn->error;
+                    }
+                }
+
+                if ($ext != 'csv') {
+                    $objPHPExcel->disconnectWorksheets();
+                }
+
+                fclose($file);
+            } else {
+                echo "Format de fichier non pris en charge.";
+            }
+        }
+
+        // Fermer la connexion à la base de données
+        $conn->close();
+    }
+    ?>
+</body>
+</html>
