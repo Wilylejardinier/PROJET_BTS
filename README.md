@@ -9,4 +9,4 @@ m_mac : adresse MAC de l'équipement. Elle doit être sous la forme "xx-xx-xx-xx
 m_fabricant : nom du fabricant de l'équipement. Il peut contenir des lettres, des chiffres et des caractères spéciaux, mais ne doit pas dépasser 50 caractères.
 m_commentaire : commentaire sur l'équipement. Il peut contenir des lettres, des chiffres et des caractères spéciaux, mais ne doit pas dépasser 150 caractères.
 m_actif : indication sur l'état de l'équipement (par exemple, "oui" ou "non"). Il ne doit pas dépasser 8 caractères.
-Il est important de respecter ces règles de remplissage pour éviter les erreurs lors de l'importation des données dans la table "materiel". De plus, vous devez vous assurer que les données sont valides et cohérentes pour éviter toute erreur ou perte de données.
+Il est important de respecter ces règles de remplissage pour éviter les erreurs lors de l'importation des données dans la table "materiel". De plus, vous devez vous assurer que les données sont valides et cohérentes pour éviter toute erreur ou perte de données. 
