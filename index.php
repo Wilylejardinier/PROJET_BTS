@@ -1,54 +1,46 @@
-<?php
-// Connexion à la base de données
-$servername = "51.178.17.79";
-$username = "Ascaba";
-$password = "aScaba2023**";
-$dbname = "ProjetSN";
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Vérification de la connexion
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-// Traitement de l'importation des données
-if (isset($_POST['submit'])) {
-  // Vérification du fichier CSV
-  if ($_FILES['file']['type'] == 'text/csv' || $_FILES['file']['type'] == 'application/vnd.ms-excel') {
-    // Ouverture du fichier
-    $file = fopen($_FILES['file']['tmp_name'], 'r');
-    // Vérification de la première ligne
-    $header = fgetcsv($file);
-    if ($header[0] != 'm_cb' || $header[1] != 'm_nom' || $header[2] != 'm_type' || $header[3] != 'm_site' || $header[4] != 'm_ip' || $header[5] != 'm_mac' || $header[6] != 'm_fabricant' || $header[7] != 'm_commentaire' || $header[8] != 'm_actif') {
-      echo 'Le fichier CSV n\'est pas conforme aux règles de remplissage.';
-      exit;
-    }
-    // Importation des données
-    while (($data = fgetcsv($file, 1000, ",")) !== FALSE) {
-      $sql = "INSERT INTO materiel (m_cb, m_nom, m_type, m_site, m_ip, m_mac, m_fabricant, m_commentaire, m_actif) VALUES ('$data[0]', '$data[1]', '$data[2]', '$data[3]', '$data[4]', '$data[5]', '$data[6]', '$data[7]', '$data[8]')";
-      if ($conn->query($sql) !== TRUE) {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-      }
-    }
-    // Fermeture du fichier
-    fclose($file);
-    // Confirmation de l'importation
-    echo "Les données ont été importées avec succès.";
-  } else {
-    echo 'Le fichier doit être au format CSV ou XLS.';
-    exit;
-  }
-}
-?>
+<?php session_start(); ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Importation de données</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Import Excel Data into database in PHP</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-  <form enctype="multipart/form-data" method="post">
-    <input type="file" name="file">
-    <input type="submit" name="submit" value="Importer">
-  </form>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-4">
+
+                <?php
+                if(isset($_SESSION['message']))
+                {
+                    echo "<h4>".$_SESSION['message']."</h4>";
+                    unset($_SESSION['message']);
+                }
+                ?>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4>How to Import Excel Data into database in PHP</h4>
+                    </div>
+                    <div class="card-body">
+
+                        <form action="code.php" method="POST" enctype="multipart/form-data">
+
+                            <input type="file" name="import_file" class="form-control" />
+                            <button type="submit" name="save_excel_data" class="btn btn-primary mt-3">Import</button>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
