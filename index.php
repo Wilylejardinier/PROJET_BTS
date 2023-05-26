@@ -1,16 +1,21 @@
 <?php session_start(); ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How to Import Excel Data into database in PHP</title>
+    <title>Import Excel Data into database in PHP</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    
     <div class="container">
+        <!-- Ajout du logo -->
+        <div class="row justify-content-center mt-4">
+            <div>
+                <img src=".\img\LOGO_IMEF.PNG" alt="Logo">
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12 mt-4">
 
@@ -24,7 +29,7 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h4>How to Import Excel Data into database in PHP</h4>
+                        <h4>Import Excel Data into database in PHP</h4>
                     </div>
                     <div class="card-body">
 
