@@ -25,13 +25,14 @@ if(isset($_POST['save_excel_data']))
         {
             if($count > 0)
             {
-                $fullname = $row['0'];
-                $email = $row['1'];
-                $phone = $row['2'];
-                $course = $row['3'];
+                $m_nom = $row['0'];
+                $m_ip = $row['1'];
+                $m_mac = $row['2'];
+                $m_fabricant = $row['3'];
+                $m_type = $row['4'];
 
-                $studentQuery = "INSERT INTO students (fullname,email,phone,course) VALUES ('$fullname','$email','$phone','$course')";
-                $result = mysqli_query($con, $studentQuery);
+                $materialQuery = "INSERT INTO materiel (m_nom, m_ip, m_mac, m_fabricant, m_type) VALUES ('$m_nom','$m_ip','$m_mac','$m_fabricant','$m_type')";
+                $result = mysqli_query($conn, $materialQuery);
                 $msg = true;
             }
             else
