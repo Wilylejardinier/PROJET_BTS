@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Import Excel Data into database in PHP</title>
+    <title>Importation Excel Dans la Base de données</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -29,14 +29,14 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h4>Import Excel Data into database in PHP</h4>
+                        <h4>Importation Excel Dans la Base de données</h4>
                     </div>
                     <div class="card-body">
 
                         <form action="code.php" method="POST" enctype="multipart/form-data">
 
                             <input type="file" name="import_file" class="form-control" />
-                            <button type="submit" name="save_excel_data" class="btn btn-primary mt-3">Import</button>
+                            <button type="submit" name="save_excel_data" class="btn btn-primary mt-3">Importer</button>
 
                         </form>
 

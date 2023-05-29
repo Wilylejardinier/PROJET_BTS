@@ -1,0 +1,7 @@
+choses à faire :
+
+-barre de recherche fonctionnel 
+-site uniforme
+-bouton modif fonctionnel 
+-on doit plus voir les pages sur lesquels on se trouve dans la barre 
+-changer le logo de l'icone de la page 
