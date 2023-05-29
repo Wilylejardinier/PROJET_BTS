@@ -4,4 +4,9 @@ choses à faire :
 -site uniforme
 -bouton modif fonctionnel 
 -on doit plus voir les pages sur lesquels on se trouve dans la barre 
--changer le logo de l'icone de la page 
+-changer le logo de l'icone de la page
+
+
+bug
+
+-les id sont gardé en mémoire meme apres supression

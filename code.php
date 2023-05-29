@@ -5,19 +5,19 @@ include('dbconfig.php');
 require 'vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 if(isset($_POST['save_excel_data']))
 {
     $fileName = $_FILES['import_file']['name'];
     $file_ext = pathinfo($fileName, PATHINFO_EXTENSION);
 
-    $allowed_ext = ['xls','csv','xlsx'];
+    $allowed_ext = ['xls','csv','xlsx', 'ods'];
 
     if(in_array($file_ext, $allowed_ext))
     {
         $inputFileNamePath = $_FILES['import_file']['tmp_name'];
-        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($inputFileNamePath);
+        $spreadsheet = IOFactory::load($inputFileNamePath);
         $data = $spreadsheet->getActiveSheet()->toArray();
 
         $count = "0";
