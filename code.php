@@ -7,56 +7,56 @@ require 'vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
-if(isset($_POST['save_excel_data']))
+if(isset($_POST['sauvegarder_donnees_excel']))
 {
-    $fileName = $_FILES['import_file']['name'];
-    $file_ext = pathinfo($fileName, PATHINFO_EXTENSION);
+    $nomFichier = $_FILES['importer_fichier']['name'];
+    $extension_fichier = pathinfo($nomFichier, PATHINFO_EXTENSION);
 
-    $allowed_ext = ['xls','csv','xlsx', 'ods'];
+    $extensions_autorisees = ['xls','csv','xlsx', 'ods'];
 
-    if(in_array($file_ext, $allowed_ext))
+    if(in_array($extension_fichier, $extensions_autorisees))
     {
-        $inputFileNamePath = $_FILES['import_file']['tmp_name'];
-        $spreadsheet = IOFactory::load($inputFileNamePath);
-        $data = $spreadsheet->getActiveSheet()->toArray();
+        $cheminFichierSource = $_FILES['importer_fichier']['tmp_name'];
+        $tableur = IOFactory::load($cheminFichierSource);
+        $donnees = $tableur->getActiveSheet()->toArray();
 
-        $count = "0";
-        foreach($data as $row)
+        $compteur = "0";
+        foreach($donnees as $ligne)
         {
-            if($count > 0)
+            if($compteur > 0)
             {
-                $m_nom = $row['0'];
-                $m_ip = $row['1'];
-                $m_mac = $row['2'];
-                $m_fabricant = $row['3'];
-                $m_type = $row['4'];
+                $m_nom = $ligne['0'];
+                $m_ip = $ligne['1'];
+                $m_mac = $ligne['2'];
+                $m_fabricant = $ligne['3'];
+                $m_type = $ligne['4'];
 
-                $materialQuery = "INSERT INTO materiel (m_nom, m_ip, m_mac, m_fabricant, m_type) VALUES ('$m_nom','$m_ip','$m_mac','$m_fabricant','$m_type')";
-                $result = mysqli_query($conn, $materialQuery);
+                $requeteMateriel = "INSERT INTO materiel (m_nom, m_ip, m_mac, m_fabricant, m_type) VALUES ('$m_nom','$m_ip','$m_mac','$m_fabricant','$m_type')";
+                $resultat = mysqli_query($conn, $requeteMateriel);
                 $msg = true;
             }
             else
             {
-                $count = "1";
+                $compteur = "1";
             }
         }
 
         if(isset($msg))
         {
-            $_SESSION['message'] = "Successfully Imported";
+            $_SESSION['message'] = "Importation réussie";
             header('Location: index.php');
             exit(0);
         }
         else
         {
-            $_SESSION['message'] = "Not Imported";
+            $_SESSION['message'] = "Importation échouée";
             header('Location: index.php');
             exit(0);
         }
     }
     else
     {
-        $_SESSION['message'] = "Invalid File";
+        $_SESSION['message'] = "Fichier invalide";
         header('Location: index.php');
         exit(0);
     }

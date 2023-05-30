@@ -1,15 +1,15 @@
 <?php
-    $host = "localhost";
-    $username = "root";
-    $password = "";
-    $database = "projetsnir";
+    $hote = "localhost";
+    $nom_utilisateur = "root";
+    $mot_de_passe = "";
+    $base_de_donnees = "projetsnir";
 
-    // Create DB Connection
-    $conn = mysqli_connect($host, $username, $password, $database);
+    // Création de la connexion à la base de données
+    $conn = mysqli_connect($hote, $nom_utilisateur, $mot_de_passe, $base_de_donnees);
 
-    // Check connection
+    // Vérification de la connexion
     if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
+        die("Erreur de connexion : " . mysqli_connect_error());
     }
-    echo "Connected successfully";
+    echo "Connexion réussie";
 ?>
