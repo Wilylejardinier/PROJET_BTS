@@ -1,4 +1,5 @@
 <?php
+    // Paramètres de connexion à la base de données
     $hote = "localhost";
     $nom_utilisateur = "root";
     $mot_de_passe = "";

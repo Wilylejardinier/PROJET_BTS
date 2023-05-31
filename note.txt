@@ -5,8 +5,13 @@ choses à faire :
 -bouton modif fonctionnel 
 -on doit plus voir les pages sur lesquels on se trouve dans la barre 
 -changer le logo de l'icone de la page
+-CB EAN13 il faut que ça soit auto incrementé ou generer automatiquement et etre unique
 
-
+____________________________________________________________________________________________________________________________
 bug
 
 -les id sont gardé en mémoire meme apres supression
+
+-quand il y'a des erreur sur des lignes dans l'excel il importe pas la ligne 
+mais importe quand meme les lignes qui ont pas de problème il faudrait qu'il importe aucune données
+même si certaines lignes sont bonnes.
