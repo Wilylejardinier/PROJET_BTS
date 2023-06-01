@@ -7,6 +7,11 @@ choses à faire :
 -changer le logo de l'icone de la page
 -CB EAN13 il faut que ça soit auto incrementé ou generer automatiquement et etre unique
 
+
+demain: verifier si la limite de caractère est fonctionnel et qu'il indique bien un message pour corriger le défaut
+faire aussi en sorte que si il y'a une erreur d'importer aucune ligne meme si elle est correct 
+verifier les injections SQL 
+
 ____________________________________________________________________________________________________________________________
 bug
 
