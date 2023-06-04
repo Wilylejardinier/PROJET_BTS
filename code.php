@@ -9,9 +9,15 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 
 if(isset($_POST['sauvegarder_donnees_excel']))
 {
+    // Vérifier si un fichier a été uploadé
+    if (!isset($_FILES['importer_fichier']) || $_FILES['importer_fichier']['size'] == 0) {
+        $_SESSION['message'] = "Aucun fichier n'a été sélectionné. Veuillez sélectionner un fichier à importer.";
+        header('Location: index.php');
+        exit(0);
+    }
+
     $nomFichier = $_FILES['importer_fichier']['name'];
     $extension_fichier = pathinfo($nomFichier, PATHINFO_EXTENSION);
-
     $extensions_autorisees = ['xls','csv','xlsx', 'ods'];
 
     if(in_array($extension_fichier, $extensions_autorisees))

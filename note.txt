@@ -15,8 +15,39 @@ verifier les injections SQL
 ____________________________________________________________________________________________________________________________
 bug
 
--les id sont gardé en mémoire meme apres supression
+Format en-tête :
 
--quand il y'a des erreur sur des lignes dans l'excel il importe pas la ligne 
+"n°bug".[Priorité] [Catégorie] [État du bug] [Responsable ] [Date de découverte] [Date de résolution]
+____________________________________________________________________________________________________________________________
+
+0001.[Priorité 4] [BDD] [Nouveau] [Franck] [31/05/2023][?]
+
+BUG:les id auto incrémenter de la table "matérielé sont gardé en mémoire meme apres supression 
+
+NOTE:d'après monsieur Georges c'est tout à fait normal c'est pas grave si après supression des éléments 
+l'id garde la même suite.
+____________________________________________________________________________________________________________________________
+
+0002.[Priorité 2] [code.php] [Nouveau] [Franck] [31/05/2023][?]
+
+BUG:quand il y'a des erreur sur des lignes dans l'excel il importe pas la ligne 
 mais importe quand meme les lignes qui ont pas de problème il faudrait qu'il importe aucune données
 même si certaines lignes sont bonnes.
+
+____________________________________________________________________________________________________________________________
+
+0003.[Priorité 1,5] [code.php] [Corigé] [Franck] [01/06/2023][01/06/2023]
+
+BUG:quand on essaie de cliquer sur importer quand on a pas séléctionner de fichier il nous met sur la pager de code.php et ecris 
+"Connexion réussieFormat de fichier non pris en charge. Veuillez télécharger un fichier .xls, .csv, .xlsx ou .ods."
+
+CORRECTION:
+"
+    // Vérifier si un fichier a été uploadé
+    if (!isset($_FILES['importer_fichier']) || $_FILES['importer_fichier']['size'] == 0) {
+        $_SESSION['message'] = "Aucun fichier n'a été sélectionné. Veuillez sélectionner un fichier à importer.";
+        header('Location: index.php');
+        exit(0);
+    }
+"
+____________________________________________________________________________________________________________________________
