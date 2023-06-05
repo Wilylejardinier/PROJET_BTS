@@ -18,7 +18,7 @@ function ajaxConnexion(){
     if (this.readyState == 4 && this.status == 200) {
       var reponseServeur_objet=JSON.parse(this.responseText); // this.responseText est la réponse du serveur à une requête http
       if(reponseServeur_objet.status=="success"){
-         window.location.replace("test.html");
+         window.location.replace("consulte.php");
       }else{
         alert(reponseServeur_objet.message);
       }
@@ -29,19 +29,41 @@ function ajaxConnexion(){
   xhttp.send(donnees);
 
 }
+function ajaxDeconnexion(){
+  const xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var reponseServeur_objet=JSON.parse(this.responseText); // this.responseText est la réponse du serveur à une requête http 
+      console.debug(this.responseText);
+      if(reponseServeur_objet.status=="success"){
+         window.location.replace("connexion.php");
+      }else{
+        alert(reponseServeur_objet.message);
+      }
+    }
+  };
+  xhttp.open("POST", "rest.php/deconnexion");
+  xhttp.send();
+
+}
+
 
 function recupererMateriel(){
   const xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
+      console.debug(this.responseText);
       var reponseServeur_objet=JSON.parse(this.responseText); // this.responseText est la réponse du serveur à une requête http
-      console.log(reponseServeur_objet.valeur);
-
-      var reponse=reponseServeur_objet.valeur;
-
+      
       var materiel="<table><thead><tr>\
 					<th>Nom</th><th>IP</th><th>MAC</th><th>Commentaire</th><th>Site</th><th>Fabricant</th><th>Code Barre</th><th>Type</th><th>Actif</th><th>Supprimer</th></tr></thead>";
 			
+          if(reponseServeur_objet.status == "success") {
+          console.log(reponseServeur_objet.valeur);
+
+      var reponse=reponseServeur_objet.valeur;
+
+      
       for(let i=0;i<reponse.length;i++){
         materiel+="<tr>\
 					<td>"+reponse[i].m_nom+"</td>\
@@ -53,8 +75,10 @@ function recupererMateriel(){
           <td>"+reponse[i].m_cb+"</td>\
           <td>"+reponse[i].m_type+"</td>\
           <td>"+reponse[i].m_actif+"</td>\
-					<td><button>X</button></td></tr>";
+					<td><button onclick=\"supprimerMateriel('"+reponse[i].m_id+"')\">X</button></td></tr>";
+
       }
+    }
       materiel+="</table>";
 
       document.getElementById('materiel').innerHTML=materiel;
@@ -65,13 +89,31 @@ function recupererMateriel(){
 
 }
 
+
+function supprimerMateriel(m_id)
+{
+  const xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.debug("Suppression du materiel correctement exécutée");
+      recupererMateriel();
+    }
+  };
+
+  xhttp.open("DELETE", "rest.php/materiel");
+  var donnees='{"m_id":"'+m_id+'"}';
+  console.debug(donnees);
+  xhttp.send(donnees);
+
+}
+
 function ajouterMateriel(){
   const xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var reponseServeur_objet=JSON.parse(this.responseText); // this.responseText est la réponse du serveur à une requête http
       if(reponseServeur_objet.status=="success"){
-         window.location.replace("test.html");
+         window.location.replace("consulte.php");
       }else{
         alert(reponseServeur_objet.message);
       }

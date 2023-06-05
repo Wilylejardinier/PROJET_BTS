@@ -37,6 +37,7 @@
                         <form action="code.php" method="POST" enctype="multipart/form-data">
                             <input type="file" name="importer_fichier" class="form-control" />
                             <button type="submit" name="sauvegarder_donnees_excel" class="btn btn-primary mt-3">Importer</button>
+                            <a href="consulte.php" class="btn btn-secondary mt-3">Retour</a>
                         </form>
                     </div>
                 </div>

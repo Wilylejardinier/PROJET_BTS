@@ -1,8 +1,11 @@
 <?php
+
+session_start();
+
 try{
     $pdo = new PDO('mysql:host=localhost;dbname=projetsnir;charset=utf8','root', '');
 }catch (PDOException $e){
-     die ('Connexion à la base de donnes : ECHEC');
+     die ('Connexion à la base de données : ECHEC');
 }
 
 // Recherche de la méthode
@@ -14,8 +17,7 @@ if(isset($_SERVER['PATH_INFO'])){ // URL : rest.php/......
 }
 
 if($req_type=='GET'){
-  /************************************************************************/
-  /******************* http://...../rest.php/utilisateur/[pseudo] ********************/
+  
     if(isset($cheminURL_tableau[1]) && $cheminURL_tableau[1]=="utilisateur"){
       // La requete SQL
       $req = "SELECT * FROM utilisateur where u_login=?";
@@ -63,8 +65,7 @@ if($req_type=='GET'){
   $donneeRecues_tableau=json_decode($donneesRecues_json,true);
   //print_r($donneeRecues_tableau);
 
-/************************************************************************/
-/******************* http://...../rest.php/connexion ********************/
+
   if(isset($cheminURL_tableau[1]) && $cheminURL_tableau[1]=="connexion"){
     // La requete SQL
     $req = "SELECT * FROM utilisateur where u_login=? and u_pwd=?";
@@ -80,11 +81,19 @@ if($req_type=='GET'){
     if(empty($reponse)){
       $reponse_tableau=array('status'=>'error','message'=>'Identifiant ou mot de passe incorrect');
     }else{
+      $_SESSION["login"] = $donneeRecues_tableau["u_login"];
       $reponse_tableau=array('status'=>'success');
     }
     echo json_encode($reponse_tableau);
 
+  
   }
+if(isset($cheminURL_tableau[1]) && $cheminURL_tableau[1]=="deconnexion") {
+  session_destroy();
+  $reponse_tableau=array('status'=>'success');
+  echo json_encode($reponse_tableau);
+}
+
   if(isset($cheminURL_tableau[1]) && $cheminURL_tableau[1]=="materiel"){
     // La requete SQL
     $req = "INSERT INTO materiel(m_nom, m_ip, m_mac, m_commentaire, m_site, m_fabricant, m_cb, m_type, m_actif) values(?,?,?,?,?,?,?,?,?)";
@@ -107,20 +116,23 @@ if($req_type=='GET'){
 }else if($req_type=='PUT'){
 
 }else if($req_type=='DELETE'){
+  $donneesRecues_json=file_get_contents("php://input");
+  $donneeRecues_tableau=json_decode($donneesRecues_json,true);
 
+  if(isset($cheminURL_tableau[1]) && $cheminURL_tableau[1]=="materiel"){
+    echo "Suppression à gérer\n";
+    print_r($donneeRecues_tableau);
+    $req = "DELETE FROM materiel WHERE m_id=?";
+    echo $req ;
+    $reqpreparer=$pdo->prepare($req);
+    $tableauDeDonnees=array($donneeRecues_tableau["m_id"]);
+    $reqpreparer->execute($tableauDeDonnees);
+    //echo $donneeRecues_tableau["m_id"];
+   
+  }
 }else{
-  echo "Attention methode non prise en compte";
+  echo "Attention méthode non prise en compte";
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
