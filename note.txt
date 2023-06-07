@@ -1,6 +1,5 @@
 choses à faire :
 
--barre de recherche fonctionnel 
 -site uniforme
 -bouton modif fonctionnel 
 -on doit plus voir les pages sur lesquels on se trouve dans la barre 
@@ -28,15 +27,20 @@ NOTE:d'après monsieur Georges c'est tout à fait normal c'est pas grave si apr�
 l'id garde la même suite.
 ____________________________________________________________________________________________________________________________
 
-0002.[Priorité 2] [code.php] [Nouveau] [Franck] [31/05/2023][?]
+0002.[Priorité 2] [code.php] [Corrigé] [Franck] [31/05/2023][07/06/2023]
 
 BUG:quand il y'a des erreur sur des lignes dans l'excel il importe pas la ligne 
 mais importe quand meme les lignes qui ont pas de problème il faudrait qu'il importe aucune données
 même si certaines lignes sont bonnes.
+CORRECTION:
+
+le commit correspondant à la résolution du problème: 
+
+https://github.com/Wilylejardinier/PROJET_BTS/commit/a3b48b6084de19e30b518de2f3d188bc21ca73e3
 
 ____________________________________________________________________________________________________________________________
 
-0003.[Priorité 1,5] [code.php] [Corigé] [Franck] [01/06/2023][01/06/2023]
+0003.[Priorité 1,5] [code.php] [Corrigé] [Franck] [01/06/2023][01/06/2023]
 
 BUG:quand on essaie de cliquer sur importer quand on a pas séléctionner de fichier il nous met sur la pager de code.php et ecris 
 "Connexion réussieFormat de fichier non pris en charge. Veuillez télécharger un fichier .xls, .csv, .xlsx ou .ods."
