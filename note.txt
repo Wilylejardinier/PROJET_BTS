@@ -19,12 +19,17 @@ Format en-tête :
 "n°bug".[Priorité] [Catégorie] [État du bug] [Responsable ] [Date de découverte] [Date de résolution]
 ____________________________________________________________________________________________________________________________
 
-0001.[Priorité 4] [BDD] [Nouveau] [Franck] [31/05/2023][?]
+0001.[Priorité 4] [BDD] [Corrigé] [Franck] [31/05/2023][07/06/2023]
 
 BUG:les id auto incrémenter de la table "matérielé sont gardé en mémoire meme apres supression 
 
 NOTE:d'après monsieur Georges c'est tout à fait normal c'est pas grave si après supression des éléments 
 l'id garde la même suite.
+
+CORRECTION:après recherche "C'est le comportement attendu pour une clé primaire auto-incrémentée.
+La raison principale de cela est de maintenir l'intégrité des données, car réutiliser les identifiants des enregistrements
+supprimés pourrait causer de la confusion ou des erreurs, surtout si ces identifiants sont utilisés comme clés étrangères
+dans d'autres tables."
 ____________________________________________________________________________________________________________________________
 
 0002.[Priorité 2] [code.php] [Corrigé] [Franck] [31/05/2023][07/06/2023]
