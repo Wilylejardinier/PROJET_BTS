@@ -118,10 +118,11 @@
 		<h1>Gestion du Matériel</h1>
 	</header>
 	<nav>
+		<a href="ajoute.php">Ajouter</a>
 		<a href="consulte.php">Consulter</a>
 	</nav>
     <div class="container">
-		<h2>Ajouter Matériel</h2>
+		<h2>Modifier Matériel</h2>
 		<form>
 			<div style="display:flex;flex-wrap:wrap;">
 				<div style="width:33%;">
@@ -164,13 +165,11 @@
 					</select>
 				</div>
 				<div style="width:100%;">
-					<input type="button" id="bouton_materiel" class="fond_bleu police_blanche" value="Valider">
+					<input type="button" id="bouton_materiel" class="fond_bleu police_blanche" value="Modifier">
 				</div>
 			</form>
 			</div>
 			<script src="ajax.js"></script> <!-- Lien vers le fichier JavaScript contenant le code Ajax -->
-			<script>
-				document.getElementById("bouton_materiel").addEventListener("click", ajouterMateriel);
-			</script>
+			
 			
 

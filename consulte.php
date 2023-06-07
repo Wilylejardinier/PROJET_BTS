@@ -114,7 +114,6 @@
 	</header>
 	<nav>
 		<a href="ajoute.php">Ajouter</a>
-		<a href="#">Modifier</a>
 		<a id="deconnexion" href="#">deconnexion</a>
 		<a href="index.php" href="#">Import Excel</a>
 	</nav>

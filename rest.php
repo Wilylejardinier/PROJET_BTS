@@ -58,9 +58,30 @@ if($req_type=='GET'){
       }
 
     }
+    else if(isset($cheminURL_tableau[1]) && $cheminURL_tableau[1]=="materiel"){
+      $m_id = $cheminURL_tableau[2];
+      // La requete SQL
+      $req = "SELECT * FROM materiel WHERE m_id=?";
+      // Preparation de la requete
+      $reqpreparer=$pdo->prepare($req);
+      $tableauDeDonnees=array($m_id) ;
+      // Exécution de la requete
+      $reqpreparer->execute($tableauDeDonnees);
+      // récupération de la réponse
+      $reponse=$reqpreparer->fetchAll(PDO::FETCH_ASSOC);
+      //print_r($reponse);
+      $reqpreparer->closeCursor();
+      if(empty($reponse)){
+        echo '{"status":"error","message":"Erreur"}';
+      }else{
+        $reponse_tableau=array('status'=>'success','valeur'=>$reponse);
+        echo json_encode($reponse_tableau);
+      }
   /************************************************************************/
 
-}else if($req_type=='POST'){
+    }
+}
+else if($req_type=='POST'){
   $donneesRecues_json=file_get_contents("php://input");
   $donneeRecues_tableau=json_decode($donneesRecues_json,true);
   //print_r($donneeRecues_tableau);
@@ -113,7 +134,8 @@ if(isset($cheminURL_tableau[1]) && $cheminURL_tableau[1]=="deconnexion") {
 
 
 
-}else if($req_type=='PUT'){
+}
+else if($req_type=='PUT'){
 
 }else if($req_type=='DELETE'){
   $donneesRecues_json=file_get_contents("php://input");
@@ -133,7 +155,5 @@ if(isset($cheminURL_tableau[1]) && $cheminURL_tableau[1]=="deconnexion") {
 }else{
   echo "Attention méthode non prise en compte";
 }
-
-
-
+ 
  ?>

@@ -56,7 +56,7 @@ function recupererMateriel(){
       var reponseServeur_objet=JSON.parse(this.responseText); // this.responseText est la réponse du serveur à une requête http
       
       var materiel="<table><thead><tr>\
-					<th>Nom</th><th>IP</th><th>MAC</th><th>Commentaire</th><th>Site</th><th>Fabricant</th><th>Code Barre</th><th>Type</th><th>Actif</th><th>Supprimer</th></tr></thead>";
+					<th>Nom</th><th>IP</th><th>MAC</th><th>Commentaire</th><th>Site</th><th>Fabricant</th><th>Code Barre</th><th>Type</th><th>Actif</th><th></th><th>Supprimer</th></tr></thead>";
 			
           if(reponseServeur_objet.status == "success") {
           console.log(reponseServeur_objet.valeur);
@@ -75,8 +75,9 @@ function recupererMateriel(){
           <td>"+reponse[i].m_cb+"</td>\
           <td>"+reponse[i].m_type+"</td>\
           <td>"+reponse[i].m_actif+"</td>\
-					<td><button onclick=\"supprimerMateriel('"+reponse[i].m_id+"')\">X</button></td></tr>";
-
+					<td><a href=\"modifier.php?m_id="+reponse[i].m_id+"\"><button>Modifier</button></a></td>\
+          <td><button onclick=\"supprimerMateriel('"+reponse[i].m_id+"')\">X</button></td></tr>";
+          
       }
     }
       materiel+="</table>";
@@ -87,6 +88,33 @@ function recupererMateriel(){
   xhttp.open("GET", "rest.php/materiel");
   xhttp.send();
 
+}
+
+function recupererUnMateriel(m_id)
+{
+  console.debug("Recuperation d'un materiel en cours...");
+  const xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var reponseServeur_objet=JSON.parse(this.responseText); // this.responseText est la réponse du serveur à une requête http
+      console.debug(reponseServeur_objet);
+      console.debug(reponseServeur_objet.valeur[0].m_nom);
+      document.getElementById("nom").value = reponseServeur_objet.valeur[0].m_nom;
+      document.getElementById("ip").value = reponseServeur_objet.valeur[0].m_ip;
+      document.getElementById("mac").value = reponseServeur_objet.valeur[0].m_mac;
+      document.getElementById("commentaire").value = reponseServeur_objet.valeur[0].m_commentaire;
+      document.getElementById("site").value = reponseServeur_objet.valeur[0].m_site;
+      document.getElementById("fabricant").value = reponseServeur_objet.valeur[0].m_fabricant;
+      document.getElementById("code-barre").value = reponseServeur_objet.valeur[0].m_code-barre;
+      document.getElementById("type").value = reponseServeur_objet.valeur[0].m_type;
+      document.getElementById("Actif").value = reponseServeur_objet.valeur[0].m_actif;
+      //document.getElementById("select").selectedIndex = 0
+      //A REFAIRE :document.getElementById("type").value = reponseServeur_objet.valeur[0].t_type;
+
+    }
+  };
+  xhttp.open("GET", "rest.php/materiel/"+m_id);
+  xhttp.send();  
 }
 
 
