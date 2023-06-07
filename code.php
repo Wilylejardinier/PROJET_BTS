@@ -28,6 +28,7 @@ if(isset($_POST['sauvegarder_donnees_excel']))
 
         $erreurs = [];
         $compteur = 0;
+        $requetes = [];
 
         foreach($donnees as $numLigne => $ligne)
         {
@@ -55,11 +56,8 @@ if(isset($_POST['sauvegarder_donnees_excel']))
                     $erreurs['actif'][] = $numLigne + 1;
                 }
 
-                if(count($erreurs) == 0) {
-                    $requeteMateriel = "INSERT INTO materiel (m_nom, m_type, m_site, m_ip, m_mac, m_fabricant, m_commentaire, m_actif) 
+                $requetes[] = "INSERT INTO materiel (m_nom, m_type, m_site, m_ip, m_mac, m_fabricant, m_commentaire, m_actif) 
                     VALUES ('$m_designation','$m_type','$m_site','$m_ip','$m_mac','$m_fabricant', '$m_commentaire', '$m_actif')";
-                    $resultat = mysqli_query($conn, $requeteMateriel);
-                }
             }
             else
             {
@@ -78,6 +76,10 @@ if(isset($_POST['sauvegarder_donnees_excel']))
         }
         else
         {
+            foreach($requetes as $requeteMateriel) {
+                $resultat = mysqli_query($conn, $requeteMateriel);
+            }
+
             $_SESSION['message'] = "Importation réussie";
             header('Location: index.php');
             exit(0);
